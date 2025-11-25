@@ -1,16 +1,39 @@
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import axios from 'axios';
+
 export default function Content() {
+
+  const [caseData, setCaseData] = useState(null);
+  const [searchParams] = useSearchParams();
+  const kmrid = searchParams.get("kmrid")
+
+  useEffect(() => {
+    console.log("kmrid -", kmrid)
+    axios.get(`https://remote-mcp-server-authless.prabhuchira.workers.dev/api/getarticle?kmrid=${kmrid}`)
+        .then(res => {
+          if (res.data && res.data.article && res.data.article.length > 0) {
+            setCaseData(res.data.article[0]);
+          }
+        })
+        .catch(err => console.error(err));
+  },[kmrid]);
+
+
+
   return (
     <div className="content">
-      <h3>Understanding keyboard navigation in Constellation's complex components</h3>
-      <p>
-        In Constellation, certain components use a keyboard navigation pattern that makes use of both the Tab key and Arrow keys...
-      </p>
-      <div className="actions">
-        <button>Follow</button>
-        <button>Favorite</button>
-        <button>Report</button>
-        <button>Download</button>
-      </div>
+      {caseData?.KmrTitle && <h3>{caseData?.KmrTitle}</h3>}
+      {caseData?.KMRID && <p><strong>KMRID:</strong> {caseData?.KMRID}</p>}
+      {caseData?.IssueDescription && <p><strong>Issue Description:</strong> {caseData?.IssueDescription}</p>}
+      {<p><strong>Steps to Reproduce:</strong></p>}
+      {caseData?.StepsToReproduce && <pre>{caseData?.StepsToReproduce}</pre>}
+      {caseData?.RootCause && <p><strong>Root Cause:</strong> {caseData?.RootCause}</p>}
+      {caseData?.Description && <p><strong>Description:</strong> {caseData?.Description}</p>}
+      {caseData?.Solution && <p><strong>Solution:</strong> {caseData?.Solution}</p>}
+      {caseData?.ReferencedINCS && <p><strong>Referenced INCS:</strong> {caseData?.ReferencedINCS}</p>}
+      {caseData?.BugItems && <p><strong>Bug Items:</strong> {caseData?.BugItems}</p>}
+      {caseData?.Summary && <p><strong>Summary:</strong> {caseData.Summary}</p>}
     </div>
   );
 }
