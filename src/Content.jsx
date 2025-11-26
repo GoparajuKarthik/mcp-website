@@ -33,7 +33,7 @@ export default function Content() {
       {caseData?.Description && <p><strong>Description:</strong> {caseData?.Description}</p>}
       {caseData?.Solution && <p><strong>Solution:</strong> {caseData?.Solution}</p>}
       {caseData?.ReferencedINCS && <p><strong>Referenced INCS:</strong> {caseData?.ReferencedINCS}</p>}
-      {caseData?.BugItems && <p><strong>Bug Items:</strong> {caseData?.BugItems}</p>}
+      {/* {caseData?.BugItems && <p><strong>Bug Items:</strong> {caseData?.BugItems}</p>} */}
       {caseData?.Summary && <p><strong>Summary:</strong> {caseData.Summary}</p>}
         {caseData?.FixedInVersion && <p><strong>Fixed In Version:</strong> {caseData.FixedInVersion}</p>}
                 {caseData?.FoundInVersion && <p><strong>Found In Version:</strong> {caseData.FoundInVersion}</p>}
