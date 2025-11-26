@@ -12,6 +12,7 @@ export default function Content() {
     console.log("kmrid -", kmrid)
     axios.get(`https://remote-mcp-server-authless.prabhuchira.workers.dev/api/getarticle?kmrid=${kmrid}`)
         .then(res => {
+          console.log(res.data,"RES DATA")
           if (res.data && res.data.article && res.data.article.length > 0) {
             setCaseData(res.data.article[0]);
           }
@@ -23,7 +24,7 @@ export default function Content() {
 
   return (
     <div className="content">
-      {caseData?.KmrTitle && <h3>{caseData?.KmrTitle}</h3>}
+      {caseData?.KmrTitle && <h2>{caseData?.KmrTitle}</h2>}
       {caseData?.KMRID && <p><strong>KMRID:</strong> {caseData?.KMRID}</p>}
       {caseData?.IssueDescription && <p><strong>Issue Description:</strong> {caseData?.IssueDescription}</p>}
       {<p><strong>Steps to Reproduce:</strong></p>}
@@ -34,6 +35,8 @@ export default function Content() {
       {caseData?.ReferencedINCS && <p><strong>Referenced INCS:</strong> {caseData?.ReferencedINCS}</p>}
       {caseData?.BugItems && <p><strong>Bug Items:</strong> {caseData?.BugItems}</p>}
       {caseData?.Summary && <p><strong>Summary:</strong> {caseData.Summary}</p>}
+        {caseData?.FixedInVersion && <p><strong>Fixed In Version:</strong> {caseData.FixedInVersion}</p>}
+                {caseData?.FoundInVersion && <p><strong>Found In Version:</strong> {caseData.FoundInVersion}</p>}
     </div>
   );
 }
